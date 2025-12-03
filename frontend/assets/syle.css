@@ -1,0 +1,131 @@
+/* === GLOBAL RESET === */
+* {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+  color: #1e293b;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: #0052cc !important;
+}
+
+.nav-link {
+  color: #1e293b !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #0052cc !important;
+}
+
+/* === CARD === */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card-title {
+  color: #0052cc;
+  font-weight: 600;
+}
+
+/* === BUTTONS === */
+.btn-primary {
+  background: #0052cc;
+  border-color: #0052cc;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.btn-primary:hover {
+  background: #003d99;
+}
+
+.btn-outline-primary {
+  border-color: #0052cc;
+  color: #0052cc;
+}
+
+.btn-outline-primary:hover {
+  background: #0052cc;
+  color: #fff;
+}
+
+/* === FORM === */
+.form-control {
+  border-radius: 6px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+}
+
+.form-control:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 0.2rem rgba(0, 82, 204, 0.15);
+}
+
+/* === TABLE === */
+.table thead {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+/* === SIDEBAR (Reports Page) === */
+.sidebar {
+  width: 250px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  height: 100vh;
+}
+
+.sidebar .nav-link {
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.sidebar .nav-link.active {
+  background: #0052cc;
+  color: #fff !important;
+}
+
+.sidebar .nav-link:hover {
+  background: #e0ecff;
+}
+
+/* === BADGES === */
+.badge-critical {
+  background: #dc2626;
+}
+.badge-high {
+  background: #fbbf24;
+  color: #000;
+}
+.badge-medium {
+  background: #3b82f6;
+}
+.badge-low {
+  background: #22c55e;
+}
+
+/* === MFA MODAL === */
+#mfaModal .modal-content {
+  border-radius: 10px;
+  padding: 20px;
+}

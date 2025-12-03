@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | AuditAI</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body onload="requireAuth(); loadDashboard();">
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("assets/navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="container my-4">
+
+  <h3 class="fw-bold mb-4">Security Overview</h3>
+
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6 class="text-muted">Total Scans</h6>
+        <h3 id="totalScans" class="fw-bold text-primary">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6 class="text-muted">Open Ports</h6>
+        <h3 id="openPorts" class="fw-bold text-success">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6 class="text-muted">Critical Vulns</h6>
+        <h3 id="criticalVulns" class="fw-bold text-danger">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6 class="text-muted">Last Scan</h6>
+        <h3 id="lastScan" class="fw-bold">–</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4 g-4">
+    <div class="col-lg-8">
+      <div class="card p-3">
+        <h5 class="fw-bold mb-3">Scan Activity</h5>
+        <canvas id="activityChart"></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card p-3 text-center">
+        <h5 class="fw-bold mb-3">Risk Level</h5>
+        <canvas id="riskChart"></canvas>
+        <h6 id="riskText" class="mt-3 fw-bold">Loading…</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/auth.js"></script>
+<script>
+// SAME DASHBOARD JS AS BEFORE (unchanged)
+</script>
+
+</body>
+</html>
