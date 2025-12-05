@@ -14,6 +14,12 @@
   <p class="text-center text-muted mb-4">Secure Login with MFA</p>
 
   <form id="loginForm">
+    
+    <div class="form-floating mb-3">
+      <input type="text" id="username" class="form-control" placeholder="username">
+      <label>Username</label>
+    </div>
+
     <div class="form-floating mb-3">
       <input type="email" id="email" class="form-control" placeholder="email">
       <label>Email</label>
@@ -24,23 +30,8 @@
       <label>Password</label>
     </div>
 
-    <button class="btn btn-primary w-100">Login</button>
+    <button class="btn btn-primary w-100" type="submit">Login</button>
   </form>
-</div>
-
-<!-- MFA Modal -->
-<div class="modal fade" id="mfaModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">MFA Verification</h5></div>
-      <div class="modal-body">
-        <input class="form-control" id="mfaCode" placeholder="Enter MFA Code">
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="submitMFA">Verify</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script src="assets/auth.js"></script>
@@ -53,36 +44,41 @@ let temp_mfa_token = null;
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = email.value.trim();
-  const password = password.value.trim();
+  // ❗ Input Validation
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  const res = await fetch(${API_BASE}/auth/login, {
+  if (username.length < 3) {
+    alert("Username must be at least 3 characters.");
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Enter a valid email address.");
+    return;
+  }
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters.");
+    return;
+  }
+
+  const res = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username, email, password })
   });
 
   const data = await res.json();
 
   if (data.mfa_required) {
       temp_mfa_token = data.mfa_token;
-      let modal = new bootstrap.Modal(document.getElementById("mfaModal"));
-      modal.show();
+      // 🚀 Redirect to MFA page
+      window.location.href = `mfa.html?token=${temp_mfa_token}`;
   } else {
-      alert("Unexpected response. MFA required for all accounts.");
+      alert("MFA required for all accounts.");
   }
-});
 
-document.getElementById("submitMFA").addEventListener("click", async () => {
-    const code = document.getElementById("mfaCode").value.trim();
-    const data = await verifyMFA(temp_mfa_token, code);
-
-    if (data.access_token) {
-        saveToken(data.access_token);
-        window.location.href = "scan.html";
-    } else {
-        alert("Invalid MFA code.");
-    }
 });
 </script>
 

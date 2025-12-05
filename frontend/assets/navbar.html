@@ -25,7 +25,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-danger fw-semibold" href="#" onclick="logout()">
+          <a class="nav-link text-danger fw-semibold" href="login.html" onclick="logout()">
             Logout
           </a>
         </li>
@@ -36,9 +36,28 @@
 </nav>
 
 <script>
-// highlight active tab
+// Highlight current page
 const page = window.location.pathname.split("/").pop();
 if (page.includes("dashboard")) document.getElementById("nav-dashboard").classList.add("text-primary");
 if (page.includes("scan")) document.getElementById("nav-scan").classList.add("text-primary");
 if (page.includes("report")) document.getElementById("nav-report").classList.add("text-primary");
+
+
+// LOGOUT FUNCTION
+function logout() {
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("mfa_token");
+    window.location.href = "login.html";  // Redirect
+}
+
+// Auto-block if no login token
+(function securePages() {
+    const protectedPages = ["dashboard.html", "scan.html", "report.html"];
+    const token = sessionStorage.getItem("access_token");
+    const current = window.location.pathname.split("/").pop();
+
+    if (protectedPages.includes(current) && !token) {
+        window.location.href = "login.html";  // Block access
+    }
+})();
 </script>
